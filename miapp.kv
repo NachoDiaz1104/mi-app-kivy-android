@@ -1,0 +1,33 @@
+MDScreen:
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: "8dp"
+        padding: "12dp"
+
+        MDTopAppBar:
+            title: "Mis Tareas (SQLite)"
+            elevation: 2
+
+        MDBoxLayout:
+            adaptive_height: True
+            spacing: "8dp"
+
+            MDTextField:
+                id: input_tarea
+                hint_text: "Escribe una tarea"
+                mode: "fill"  # <- antes decía "outlined" (no válido en 1.1.1)
+                on_text_validate: app.agregar_tarea(self.text)
+
+            MDRaisedButton:
+                text: "Agregar"
+                on_release: app.agregar_tarea(input_tarea.text)
+
+        MDLabel:
+            text: "Tareas"
+            bold: True
+            halign: "left"
+            # padding_x: "4dp"   # <- quitar para evitar el warning deprecado
+
+        ScrollView:
+            MDList:
+                id: lista
