@@ -17,8 +17,10 @@ jobs:
       - name: Build with Buildozer
         uses: ArtemSBulgakov/buildozer-action@v1
         id: buildozer
+        env:
+          USER: root
         with:
-          # Si tu buildozer.spec está en la raíz del repo:
+          command: buildozer -v android debug
           workdir: .
           buildozer_version: stable
 
