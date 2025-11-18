@@ -17,8 +17,10 @@ jobs:
       - name: Build with Buildozer
         uses: ArtemSBulgakov/buildozer-action@v1.1.3
         id: buildozer
+        env:
+          USER: root
+          PIP_BREAK_SYSTEM_PACKAGES: "1"
         with:
-          # Tu buildozer.spec está en la raíz del repo
           workdir: .
           buildozer_version: stable
 
