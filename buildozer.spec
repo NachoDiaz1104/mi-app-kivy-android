@@ -1,5 +1,5 @@
 [app]
-title = Mis Tareas & Reclamos
+title = Mis Tareas y Reclamos
 package.name = mistareas
 package.domain = org.nachodiaz
 source.dir = .
