@@ -44,38 +44,26 @@ osx.python_version = 3
 
 # Si usás archivo local (SQLite en el directorio de la app) NO hace falta permiso especial.
 
-
 [buildozer]
-# Nivel de log (2 = detallado, útil para depurar)
 log_level = 2
-
-# Advertir si se corre como root
 warn_on_root = 1
 
-# Versión de la API de Android que vas a usar para compilar
+# API de Android que usamos para compilar
 android.api = 35
-
-# Min API soportada en el dispositivo
 android.minapi = 24
 
-# Bootstrap (sdl2 es el estándar actual para Kivy)
-android.bootstrap = sdl2
-
-# Aceptar automáticamente las licencias del SDK (IMPRESCINDIBLE para GitHub Actions)
+# Aceptar licencias (no hace daño tenerlo en True)
 android.accept_sdk_license = True
 
-# Arquitecturas a compilar (dos habituales)
-android.arch = arm64-v8a, armeabi-v7a
+# ⚠️ Usar el SDK y NDK que YA VIENEN instalados en GitHub Actions
+# (estas rutas son las que tiene el runner ubuntu-latest)
+android.sdk_path = /usr/local/lib/android/sdk
+android.ndk_path = /usr/local/lib/android/sdk/ndk/27.3.13750724
 
-# Si querés reducir tamaño en release, más adelante podés jugar con estos:
-# android.release = 0
-# android.add_release_dependencies = 0
+# Bootstrap por defecto para Kivy
+android.bootstrap = sdl2
 
-# Carpeta donde se guardan cosas temporales de buildozer (dejalo por defecto)
-buildozer_dir = .buildozer
 
-# Evitar que intente compilar para OSX/Windows dentro de Android build
-# (dejalo tal cual)
 
 
 
