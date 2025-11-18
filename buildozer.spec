@@ -5,7 +5,10 @@ package.domain = org.nachodiaz
 source.dir = .
 source.include_exts = py,kv,png,jpg,jpeg,db,sqlite3,ttf,ico,zip
 version = 0.1
-requirements = python3,kivy==2.2.1,kivymd==1.1.1,plyer
+
+# DEJARLO LO MÁS SIMPLE POSIBLE
+requirements = python3,kivy,kivymd
+
 orientation = portrait
 fullscreen = 0
 
@@ -13,17 +16,12 @@ fullscreen = 0
 log_level = 2
 warn_on_root = 1
 
-# API
-android.api = 35
-android.minapi = 24
+# Dejá que la imagen de Buildozer elija la API que sabe manejar
+# (si más adelante hace falta, lo fijamos)
+# android.api = 35
+# android.minapi = 24
 
-# NO pongas sdk_path ni ndk_path, dejá que la action se encargue
-# android.sdk_path = 
-# android.ndk_path = 
-
-# Aceptar licencias (esto sí está bien)
 android.accept_sdk_license = True
-
 android.bootstrap = sdl2
 android.arch = arm64-v8a, armeabi-v7a
 
