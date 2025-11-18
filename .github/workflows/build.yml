@@ -14,57 +14,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v5
+      # 🔹 Esta variable arregla el error "externally-managed-environment"
+      - name: Build with Buildozer (Docker action)
+        uses: ArtemSBulgakov/buildozer-action@v1
+        id: buildozer
+        env:
+          PIP_BREAK_SYSTEM_PACKAGES: "1"
         with:
-          python-version: "3.10"
-
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            build-essential \
-            git \
-            zip \
-            unzip \
-            autoconf \
-            automake \
-            libtool \
-            pkg-config \
-            libffi-dev \
-            libssl-dev \
-            openjdk-17-jdk \
-            libltdl-dev
-
-      - name: Create virtualenv and install Buildozer
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install --upgrade pip
-          pip install buildozer cython
-
-      # Aquí usamos el SDK que ya trae GitHub y aceptamos licencias
-      - name: Install Android SDK components and accept licenses
-        run: |
-          echo "ANDROID_HOME=$ANDROID_HOME"
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" --update
-          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" --licenses
-          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" "build-tools;36.1.0" "platforms;android-35"
-
-      - name: Build APK with Buildozer
-        run: |
-          source venv/bin/activate
-          echo "Usando SDK en $ANDROID_HOME y NDK en $ANDROID_NDK_ROOT"
-          export ANDROIDSDK="$ANDROID_HOME"
-          export ANDROIDNDK="$ANDROID_NDK_ROOT"
-          export ANDROIDAPI=35
-          export ANDROIDMINAPI=24
-          buildozer -v android debug
+          # Tu main.py y buildozer.spec están en la raíz
+          workdir: .
+          # Versión estable de buildozer dentro del contenedor
+          buildozer_version: stable
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: apk-android
-          path: bin/*.apk
-
+          path: ${{ steps.buildozer.outputs.filename }}
 
